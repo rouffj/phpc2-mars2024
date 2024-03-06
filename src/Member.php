@@ -1,8 +1,13 @@
 <?php
 
+/*
 require_once __DIR__.'/AuthInterface.php';
 require_once __DIR__.'/UserAbstract.php';
 require_once __DIR__.'/DatetimeTrait.php';
+require_once __DIR__.'/AuthenticationException.php';
+*/
+
+namespace App;
 
 class Member extends UserAbstract implements AuthInterface
 {
@@ -20,7 +25,12 @@ class Member extends UserAbstract implements AuthInterface
     //public function auth(string $login, string $password, MailerInterface $mailer): bool
     {
         //$outlookManager->sendEmail();
-        return $this->login === $login && $this->password === $password;
+        $isAuthenticated = ($this->login === $login && $this->password === $password);
+        if (!$isAuthenticated) {
+            throw new AuthenticationException('User '.$login.' is not authenticated');
+        }
+
+        return $isAuthenticated;
     }
 
     public function __toString()

@@ -1,5 +1,7 @@
 <?php
 
+namespace App;
+
 trait DatetimeTrait
 {
     private \DateTime $createdAt;

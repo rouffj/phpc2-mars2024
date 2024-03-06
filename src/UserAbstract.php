@@ -1,5 +1,7 @@
 <?php
 
+namespace App;
+
 abstract class UserAbstract
 {
     public function __construct(private string $name)

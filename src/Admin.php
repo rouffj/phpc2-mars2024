@@ -1,6 +1,8 @@
 <?php
 
-require_once __DIR__.'/Member.php';
+namespace App;
+
+//require_once __DIR__.'/Member.php';
 
 enum Level
 {
@@ -42,5 +44,14 @@ class Admin extends Member
     public static function countInstances(): int
     {
         return self::$nbInstances;
+    }
+
+    public function sendNotifications(\Closure $callback)
+    {
+        echo "Ceci est une fonction qui fait 250 lignes de code\n";
+        echo "Traitement tjrs identique avant (120L)\n";
+        $usersToNotify = $callback();
+        var_dump($usersToNotify);
+        echo "Traitement tjrs identique après (120L)\n";
     }
 }

@@ -153,11 +153,20 @@ $tag->getArticles() // article1, article2...
 
 //----
 
+interface MailerInterface
+{
+    public function send($tos, $from, $message);
+}
+
 class OutlookMailer implements MailerInterface
 {
 }
 
 class GmailMailer implements MailerInterface
+{
+}
+
+class YahooMailer implements MailerInterface
 {
 }
 
@@ -177,7 +186,38 @@ class OneEmailApp
 
         // display emails
     }
+
+    public function mainV2(array $mailers)
+    {
+        $emails = [];
+        foreach ($mailers as $mailer) {
+            $emails[] = $mailer->getEmails();
+        }
+
+        // display emails
+    }
 }
 
-----
 
+new OneEmailApp([
+    new OutlookMailer(),
+    new GmailMailer(),
+    new YahooMailer(),
+]);
+
+//----
+
+class UserController
+{
+    public function edit(Request $request)
+    {
+        $userId = $request->query->get('user_id');
+
+        // logic métier (requêtes à la DB / API, calculs...)
+
+        return $this->render('user/edit.html.twig', [
+            'user' => $user,
+        ]);
+        //return new Response('<h1>Hello Joseph</h1>', 200);
+    }
+}
